@@ -1,0 +1,413 @@
+<CustomToolbar>:
+    size_hint_y: None
+    height: self.theme_cls.standard_increment
+    padding: "5dp"
+    ###spacing: "12dp"
+
+    NationCustomIcon:
+        id: nation_icon
+        size_hint: None, None
+        pos_hint: {"center_y": .5}
+    MDFillRoundFlatIconButton:
+        id: nation_button
+        icon: 'chevron-down'	
+        md_bg_color: 0, 0.5, 1, 1
+        pos_hint: {"center_y": .5}
+        size_hint: None,0.8
+        font_style: 'H6'
+        on_release: app.menu_nation.open()
+    Widget:
+        size_hint: 0.03,1
+    MDFillRoundFlatIconButton:
+        id: unit_button
+        icon: 'chevron-down'
+        md_bg_color: 0, 0.5, 1, 1
+        pos_hint: {"center_y": .5}
+        size_hint: None,0.8
+        font_style: 'H6'
+        on_release: app.menu_unit.open()
+    Widget:
+<CustomClock>:
+    MDBoxLayout:
+        orientation: 'horizontal'
+        MDRectangleFlatButton:
+            md_bg_color: 0, 0.75, 1, 1
+            id: hours_in
+            text:
+            text_color: 0, 0, 1, 1
+            size_hint: 0.4, 1
+            on_release: app.menu_hours.open()
+        MDLabel:
+            text: '  :'
+            size_hint: 0.2, 1
+        MDRectangleFlatButton:
+            md_bg_color: 0, 0.75, 1, 1
+            id: min_in
+            text: "M"
+            text_color: 0, 0, 1, 1
+            size_hint: 0.4, 1
+            on_release: app.menu_min.open()
+
+Screen:
+    canvas:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            Color: 
+                rgba: 1, 1, 1, 1
+    FitImage:
+        source: 'fons.jpg'
+    BoxLayout:
+        orientation: "vertical"
+        CustomToolbar:
+            id: toolbar
+            elevation: 10
+            pos_hint: {"top": 1}
+        BoxLayout:
+            size_hint: 1,0.15                   
+            orientation: 'horizontal'
+            Image:
+                id: house_image
+                size_hint: 0.4, 0.8
+                pos_hint: {"center_y": .5,}
+                source: 'barrack.png'
+            Widget:
+                size_hint: 0.1, 1
+            MDFillRoundFlatIconButton:
+                id: house_lvl
+                text: 'house_lvl'
+                icon: 'chevron-down'
+                size_hint: 0.6, None
+                pos_hint: {"center_y": .5,"center_x": .25}
+                on_release: app.menu_house_lvl.open()
+            Widget:
+                size_hint: 0.4, 1
+            MDFillRoundFlatIconButton:
+                id: bonus_aliance
+                text: 'Aliance'
+                icon: 'chevron-down'
+                size_hint: 0.8, None
+                pos_hint: {"center_y": .5,"center_x": .25}
+                on_release: app.menu_bonus_aliance.open()
+            Widget:
+                size_hint: 0.1, 1
+        BoxLayout:
+            size_hint: 1,0.15 
+            Image:
+                id: unit_image
+                pos_hint: {"center_y": .5}
+                size_hint: 0.4, 0.8
+                source: 'stable.png'
+            Widget:
+                size_hint: 0.1, 1
+            MDFillRoundFlatIconButton:
+                id: unit_lvl
+                text: 'Unit level'
+                icon: 'chevron-down'
+                size_hint: 0.6, None
+                pos_hint: {"center_y": .5,"center_x": .25}
+                on_release: app.menu_unit_lvl.open()
+            Widget:
+                size_hint: 0.4, 1
+            MDFillRoundFlatIconButton:
+                id: bonus_artefact
+                text: 'Artefact'
+                icon: 'chevron-down'
+                size_hint: 0.8, None
+                pos_hint: {"center_y": .5,"center_x": .25}
+                on_release: app.menu_bonus_artefact.open()
+            Widget:
+                size_hint: 0.1, 1 
+        BoxLayout:
+            size_hint: 1,0.15  
+            orientation: 'horizontal'
+            Image:
+                size_hint: 0.4, 0.8
+                pos_hint: {"center_y": .5}
+                source: 'barrack.png'
+            Widget:
+                size_hint: 0.1, 1
+            #MDTextField:
+                #size_hint: 0.4, 0.8
+                #hint_text: "Time"
+                #mode: "rectangle"
+                #pos_hint: {"center_x": .25,"center_y": .5}
+            CustomClock:
+                id: time_board
+                size_hint: 0.5, 0.6
+                pos_hint: {"center_x": .25,"center_y": .5}
+            Widget:
+                size_hint: 0.4, 1
+            MDFillRoundFlatIconButton:
+                id: bonus_helmet
+                text: 'Helmet'
+                icon: 'chevron-down'
+                size_hint: 0.8, None
+                pos_hint: {"center_y": .5,"center_x": .25}
+                on_release: app.menu_bonus_helmet.open()
+            Widget:
+                size_hint: 0.1, 1
+        Widget: 
+            size_hint: 1,0.02
+        BoxLayout:
+            size_hint: 0.8, 0.1
+            pos_hint: {"center_y": .5, "center_x": .5}
+            orientation:'horizontal'
+            canvas.before:
+                Color: 
+                    rgb: app.bktablecolor
+                Rectangle:
+                    pos: self.pos
+                    size: self.size 
+            GridLayout:
+                padding: 3,3,3,3
+                cols: 3
+                Image:
+                    source:'datas/def_inf.png'
+                    canvas.before:
+                        Color: 
+                            rgb: app.rowcolor_1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                MDLabel:	
+                    id: l_unit_name
+                    text: "unit name"
+                    halign:"center"
+                    canvas.before:
+                        Color: 
+                            rgb: app.rowcolor_1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                MDLabel:
+                    id: l_unit_count
+                    halign:"center"
+                    text: "unit count"
+                    canvas.before:
+                        Color: 
+                            rgb: app.rowcolor_1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+        Widget: 
+            size_hint: 1, 0.05
+        BoxLayout:
+            size_hint:(.9, .6)
+            pos_hint: {'x':.05, 'y':.14}
+            orientation:'horizontal'
+            canvas.before:
+                Color: 
+                    rgb: app.bktablecolor
+                Rectangle:
+                    pos: self.pos
+                    size: self.size 
+            GridLayout:
+                padding: 3,3,0,3
+                cols: 2
+                Image:
+                    source:'datas/def_inf.png'
+                    canvas.before:
+                        Color: 
+                            rgb: app.rowcolor_2
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                MDLabel:
+                    halign:"center"
+                    id: l_def_inf
+                    text: "def inflantry"
+                    canvas.before:
+                        Color: 
+                            rgb: app.rowcolor_2
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                Image:
+                    source:'datas/def_cav.png'
+                    pos_hint: {"left":1,"center_y":1}
+                    canvas.before:
+                        Color: 
+                            rgb: app.rowcolor_1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                MDLabel:
+                    halign:"center"
+                    id: l_def_cav
+                    text: "def cavalery"
+                    canvas.before:
+                        Color: 
+                            rgb: app.rowcolor_1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                Image:
+                    source:'datas/def_cav.png'
+                    canvas.before:
+                        Color: 
+                            rgb: app.rowcolor_2
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                MDLabel:
+                    id: l_def
+                    text: "all deff"
+                    canvas.before:
+                        Color: 
+                            rgb: app.rowcolor_2
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                Image:
+                    source:'datas/att_power.png'
+                    canvas.before:
+                        Color: 
+                            rgb: app.rowcolor_1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                MDLabel:
+                    id: l_attpow
+                    text: "attack power"
+                    canvas.before:
+                        Color: 
+                            rgb: app.rowcolor_1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                Image:
+                    source:'datas/usefood.png'
+                    canvas.before:
+                        Color: 
+                            rgb: app.rowcolor_2
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                MDLabel:
+                    id: l_usefood
+                    text: "use food"
+                    canvas.before:
+                        Color: 
+                            rgb: app.rowcolor_2
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+            GridLayout:
+                padding: 3,3,3,3
+                cols: 2
+
+                Image:
+                    source:'datas/wood.png'
+                    canvas.before:
+                        Color: 
+                            rgb: app.rowcolor_2
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                MDLabel:
+                    id: l_wood
+                    text: "wood"
+                    canvas.before:
+                        Color: 
+                            rgb: app.rowcolor_2
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+                Image:
+                    source:'datas/clay.png'
+                    canvas.before:
+                        Color: 
+                            rgb: app.rowcolor_1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                MDLabel:
+                    id: l_clay
+                    text: "clay"
+                    canvas.before:
+                        Color: 
+                            rgb: app.rowcolor_1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+                Image:
+                    source:'datas/iron.png'
+                    canvas.before:
+                        Color: 
+                            rgb: app.rowcolor_2
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                MDLabel:
+                    id: l_iron
+                    text: "iron"
+                    canvas.before:
+                        Color: 
+                            rgb: app.rowcolor_2
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+                Image:
+                    source:'datas/food.png'
+                    canvas.before:
+                        Color: 
+                            rgb: app.rowcolor_1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                MDLabel:
+                    id: l_food
+                    text: "food"
+                    canvas.before:
+                        Color: 
+                            rgb: app.rowcolor_1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+                Image:
+                    source:'datas/resurses.png'
+                    canvas.before:
+                        Color: 
+                            rgb: app.rowcolor_2
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                MDLabel:
+                    id: l_res
+                    text: "all resourses"
+                    canvas.before:
+                        Color: 
+                            rgb: app.rowcolor_2
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+        MDBottomAppBar:
+            MDToolbar:
+                id: calc_button
+                title: "T-Calculator"
+                icon: "calculator"
+                type: "bottom"
+                on_action_button: app.calc_func()
+    MDFloatLayout:
+        LanguageImage:
+            source: 'UA.png'
+            size_hint: 0.1, 0.1
+            pos_hint:{"center_y": .035,"center_x": .95}
+            on_press:app.change_language_in('ukr')
+        LanguageImage:
+            source: 'RU.png'
+            size_hint: 0.1, 0.1
+            pos_hint:{"center_y": .035,"center_x": .85}
+            on_press:app.change_language_in('rus')  
+        LanguageImage:
+            source: 'US.png'
+            size_hint: 0.1, 0.1
+            pos_hint:{"center_y": .035,"center_x": .75} 
+            on_press:app.change_language_in('eng')   
+           	
