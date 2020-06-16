@@ -85,6 +85,8 @@ class Test(MDApp):
             self.screen.ids.toolbar.ids.nation_icon.source = "datas/romans.png"
             
         db_widgets_text = {"'l_res'":self.screen.ids.l_res,"'l_food'":self.screen.ids.l_food,"'l_iron'":self.screen.ids.l_iron,"'house_lvl'":self.screen.ids.house_lvl,
+                          "'unit_button'":self.screen.ids.toolbar.ids.unit_button,
+                          "'artifact'":self.screen.ids.bonus_artefact,"'helmet'":self.screen.ids.bonus_helmet,"'aliance'":self.screen.ids.bonus_aliance,
                           "'l_clay'":self.screen.ids.l_clay,"'l_wood'":self.screen.ids.l_wood,"'l_usefood'":self.screen.ids.l_usefood,"'l_attpow'":self.screen.ids.l_attpow,
                           "'unit_lvl'":self.screen.ids.unit_lvl,"'min_in'":self.screen.ids.time_board.ids.min_in,"'hours_in'":self.screen.ids.time_board.ids.hours_in,
                           "'l_unit_name'":self.screen.ids.l_unit_name, "'l_unit_count'":self.screen.ids.l_unit_count,"'l_def_inf'":self.screen.ids.l_def_inf, "'l_def_cav'":self.screen.ids.l_def_cav,
@@ -110,11 +112,11 @@ class Test(MDApp):
         self.menu_unit = MDDropdownMenu(caller=self.screen.ids.toolbar.ids.unit_button,items = [{ "text": str(i) } for i in self.item_units],
                                         width_mult=3,position="bottom",use_icon_item = False,)
         self.menu_bonus_aliance = MDDropdownMenu(caller=self.screen.ids.bonus_aliance, items=[{ "text": str(i) } for i in self.items_bonus_aliance],
-                                                 width_mult=3,position="bottom",use_icon_item = False,)
+                                                 width_mult=3,position="bottom",use_icon_item = False,callback = self.set_aliance)
         self.menu_bonus_artefact = MDDropdownMenu(caller=self.screen.ids.bonus_artefact, items=[{ "text": str(i) } for i in self.items_bonus_artefact],
-                                                  width_mult=3,position="bottom",use_icon_item = False,)
+                                                  width_mult=3,position="bottom",use_icon_item = False,callback = self.set_artifact)
         self.menu_bonus_helmet = MDDropdownMenu(caller=self.screen.ids.bonus_helmet, items=[{ "text": str(i) } for i in self.items_bonus_helmet],
-                                                width_mult=3,position="bottom",use_icon_item = False,)
+                                                width_mult=3,position="bottom",use_icon_item = False,callback = self.set_helmet)
         self.menu_hours = MDDropdownMenu(caller=self.screen.ids.time_board.ids.hours_in, items=[{ "text": str(i) + '\n' + self.screen.ids.time_board.ids.hours_in.text } for i in range(73)],width_mult=2,callback=self.set_hours,
                                          position="bottom",use_icon_item = False,)
         self.menu_min = MDDropdownMenu(caller=self.screen.ids.time_board.ids.min_in, items=[{ "text": str(i) + '\n' + self.screen.ids.time_board.ids.min_in.text } for i in range(60)],width_mult=2,
@@ -151,10 +153,22 @@ class Test(MDApp):
                 self.screen.ids.toolbar.ids.unit_button.text = self.gauls_units[0]
         Clock.schedule_once(set_nation, 0.5)
         
+    def set_aliance(self, instance):
+        def set_aliance(interval):
+            self.screen.ids.bonus_aliance.text = instance.text  
+        Clock.schedule_once(set_aliance, 0.5)
+    def set_helmet(self, instance):
+        def set_helmet(interval):
+            self.screen.ids.bonus_helmet.text = instance.text  
+        Clock.schedule_once(set_helmet, 0.5)
+    def set_artifact(self, instance):
+        def set_artifact(interval):
+            self.screen.ids.bonus_artefact.text = instance.text  
+        Clock.schedule_once(set_artifact, 0.5)
     def set_houselvl(self, instance):
         def set_houselvl(interval):
             self.screen.ids.house_lvl.text = instance.text  
-        Clock.schedule_once(set_houselvl, 0.5)
+        Clock.schedule_once(set_houselvl, 0.5)     
     def set_unitlvl(self, instance):
         def set_unitlvl(interval):
             self.screen.ids.unit_lvl.text = instance.text
@@ -175,25 +189,33 @@ class Test(MDApp):
             cursor = conn.cursor()
             cursor.execute("UPDATE settings_db SET value = ? WHERE option = 'language'",(language,))
             conn.commit()
-            db_widgets_text = {"'nation_button'" : self.screen.ids.toolbar.ids.nation_button,"'unit_button'":self.screen.ids.toolbar.ids.unit_button,
+            db_widgets_texts = {"'nation_button'" : self.screen.ids.toolbar.ids.nation_button,"'unit_button'":self.screen.ids.toolbar.ids.unit_button,
                           "'artifact'":self.screen.ids.bonus_artefact,"'helmet'":self.screen.ids.bonus_helmet,"'aliance'":self.screen.ids.bonus_aliance,
                           "'l_res'":self.screen.ids.l_res,"'l_food'":self.screen.ids.l_food,"'l_iron'":self.screen.ids.l_iron,"'house_lvl'":self.screen.ids.house_lvl,
                           "'l_clay'":self.screen.ids.l_clay,"'l_wood'":self.screen.ids.l_wood,"'l_usefood'":self.screen.ids.l_usefood,"'l_attpow'":self.screen.ids.l_attpow,
                           "'unit_lvl'":self.screen.ids.unit_lvl,"'min_in'":self.screen.ids.time_board.ids.min_in,"'hours_in'":self.screen.ids.time_board.ids.hours_in,
                           "'l_unit_name'":self.screen.ids.l_unit_name, "'l_unit_count'":self.screen.ids.l_unit_count,"'l_def_inf'":self.screen.ids.l_def_inf, "'l_def_cav'":self.screen.ids.l_def_cav,
                           "'l_def'": self.screen.ids.l_def}
-            db_widgets_title ={"'calc_button'":self.screen.ids.calc_button}
-            for key, values in db_widgets_text.items():
+            db_widgets_titles ={"'calc_button'":self.screen.ids.calc_button}
+            db_widgets_items ={"'bonus_aliance'":self.menu_bonus_aliance,"'bonus_helmet'":self.menu_bonus_helmet,
+                          "'bonus_artefact'":self.menu_bonus_artefact,}
+            for key, values in db_widgets_texts.items():
                 q = "SELECT {0} FROM language_db WHERE widget_id = {1}".format(language, key)
                 cursor.execute(q)
                 new_text = cursor.fetchone()
                 if new_text is not None:
                     values.text = new_text[0]
                 else: print('here was none {0}'.format(key))
-            for key, values in db_widgets_title.items():
+            for key, values in db_widgets_titles.items():
                 q = "SELECT {0} FROM language_db WHERE widget_id = {1}".format(language, key)
                 cursor.execute(q)
                 values.title = cursor.fetchone()[0]
+            for key, values in db_widgets_items.items():
+                q = "SELECT {0} FROM language_db WHERE widget_id = {1}".format(language, key)
+                cursor.execute(q)
+                items = cursor.fetchone()[0]
+                items = items.split(",")
+                values.items = [{ "text": str(i) } for i in items]
             conn.close()
         Clock.schedule_once(update_screen,0.5)
         
