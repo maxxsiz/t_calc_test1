@@ -176,6 +176,7 @@ class Test(MDApp):
             cursor.execute("UPDATE settings_db SET value = ? WHERE option = 'language'",(language,))
             conn.commit()
             db_widgets_text = {"'nation_button'" : self.screen.ids.toolbar.ids.nation_button,"'unit_button'":self.screen.ids.toolbar.ids.unit_button,
+                          "'artifact'":self.screen.ids.bonus_artefact,"'helmet'":self.screen.ids.bonus_helmet,"'aliance'":self.screen.ids.bonus_aliance,
                           "'l_res'":self.screen.ids.l_res,"'l_food'":self.screen.ids.l_food,"'l_iron'":self.screen.ids.l_iron,"'house_lvl'":self.screen.ids.house_lvl,
                           "'l_clay'":self.screen.ids.l_clay,"'l_wood'":self.screen.ids.l_wood,"'l_usefood'":self.screen.ids.l_usefood,"'l_attpow'":self.screen.ids.l_attpow,
                           "'unit_lvl'":self.screen.ids.unit_lvl,"'min_in'":self.screen.ids.time_board.ids.min_in,"'hours_in'":self.screen.ids.time_board.ids.hours_in,
