@@ -35,7 +35,6 @@ class CustomToolbar(ThemableBehavior, RectangularElevationBehavior, MDBoxLayout,
         super().__init__(**kwargs)
         self.md_bg_color = self.theme_cls.primary_color
 
-
         
 class Test(MDApp):
     bkscreencolor = (0, 0.3, 0.8)
@@ -156,7 +155,6 @@ class Test(MDApp):
         def set_houselvl(interval):
             self.screen.ids.house_lvl.text = instance.text  
         Clock.schedule_once(set_houselvl, 0.5)
-        
     def set_unitlvl(self, instance):
         def set_unitlvl(interval):
             self.screen.ids.unit_lvl.text = instance.text
@@ -187,9 +185,10 @@ class Test(MDApp):
             for key, values in db_widgets_text.items():
                 q = "SELECT {0} FROM language_db WHERE widget_id = {1}".format(language, key)
                 cursor.execute(q)
-                print(cursor.fetchone()[0])
-                new_text = cursor.fetchone()[0]
-                values.text = new_text
+                new_text = cursor.fetchone()
+                if new_text is not None:
+                    values.text = new_text[0]
+                else: print('here was none {0}'.format(key))
             for key, values in db_widgets_title.items():
                 q = "SELECT {0} FROM language_db WHERE widget_id = {1}".format(language, key)
                 cursor.execute(q)
