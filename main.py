@@ -63,19 +63,19 @@ class Test(MDApp):
             empty.append(a)
             
         self.gauls_units, self.teutons_units, self.romans_units, self.items_bonus_helmet, self.items_nation, self.items_bonus_artefact, self.items_bonus_aliance = empty[0],empty[1],empty[2],empty[3],empty[4],empty[5],empty[6]
-        if self.st_nation == 'Gauls':
+        if self.st_nation in ["Gauls",'Галлы','Галли']:
             print('gauls')
             self.screen.ids.toolbar.ids.unit_button.text = self.gauls_units[0]
             self.screen.ids.toolbar.ids.nation_button.text = self.items_nation[0]
             self.item_units = self.gauls_units
             self.screen.ids.toolbar.ids.nation_icon.source = "datas/gauls.png"
-        elif self.st_nation == 'Teutons':
+        elif self.st_nation in ['Teutons','Германцы','Германці']:
             print('teutons')
             self.screen.ids.toolbar.ids.unit_button.text = self.teutons_units[0]
             self.screen.ids.toolbar.ids.nation_button.text = self.items_nation[2]
             self.item_units = self.teutons_units
             self.screen.ids.toolbar.ids.nation_icon.source = "datas/teutons.png"
-        elif self.st_nation == 'Romans':
+        elif self.st_nation in ['Romans','Римляни','Римляне']:
             print('romans')
             self.screen.ids.toolbar.ids.unit_button.text = self.romans_units[0]
             self.screen.ids.toolbar.ids.nation_button.text = self.items_nation[1]
@@ -108,7 +108,7 @@ class Test(MDApp):
         self.menu_unit_lvl = MDDropdownMenu(caller=self.screen.ids.unit_lvl, items=[{ "text": str(i) } for i in range(21)],width_mult=3,
                                             callback=self.set_unitlvl,position="bottom",use_icon_item = False,)
         self.menu_unit = MDDropdownMenu(caller=self.screen.ids.toolbar.ids.unit_button,items = [{ "text": str(i) } for i in self.item_units],
-                                        width_mult=3,position="bottom",use_icon_item = False,)
+                                        width_mult=3,position="bottom",use_icon_item = False, callback = self.set_unit)
         self.menu_bonus_aliance = MDDropdownMenu(caller=self.screen.ids.bonus_aliance, items=[{ "text": str(i) } for i in self.items_bonus_aliance],
                                                  width_mult=3,position="bottom",use_icon_item = False,callback = self.set_aliance)
         self.menu_bonus_artefact = MDDropdownMenu(caller=self.screen.ids.bonus_artefact, items=[{ "text": str(i) } for i in self.items_bonus_artefact],
@@ -122,65 +122,72 @@ class Test(MDApp):
     def set_hours(self, instance):
         def set_hours(interval):
             self.screen.ids.time_board.ids.hours_in.text = instance.text
-        Clock.schedule_once(set_hours, 0.5)
+        Clock.schedule_once(set_hours, 0.05)
         
     def set_min(self, instance,):
-        print('1')
         def set_min(interval):
             self.screen.ids.time_board.ids.min_in.text = instance.text
-        Clock.schedule_once(set_min, 0.5)
-        
+        Clock.schedule_once(set_min, 0.05)
+    def set_unit(self, instance):
+        print('unit ok')
+        def set_unit(interval):
+            self.screen.ids.toolbar.ids.unit_button.text = instance.text
+        Clock.schedule_once(set_unit, 0.05)   
+
     def set_nation(self, instance):
         def set_nation(interval):
             self.screen.ids.toolbar.ids.nation_button.text = instance.text
-            conn = sqlite3.connect(db_name)
-            cursor = conn.cursor()
-            cursor.execute("UPDATE settings_db SET value = ? WHERE option = 'nation'",(instance.text,))
-            conn.commit()
-            if instance.text == 'Romans':
+            if instance.text in ['Romans','Римляни','Римляне']:
                 self.screen.ids.toolbar.ids.nation_icon.source = 'datas/ROMANS_s.png'
-                self.menu_unit = MDDropdownMenu(caller=self.screen.ids.toolbar.ids.unit_button,items = [{ "text": str(i) } for i in self.romans_units],width_mult=3,position="bottom",use_icon_item = False,)
+                self.menu_unit = MDDropdownMenu(caller=self.screen.ids.toolbar.ids.unit_button,items = [{ "text": str(i) } for i in self.romans_units],width_mult=3,position="bottom",use_icon_item = False, callback = self.set_unit)
                 self.screen.ids.toolbar.ids.unit_button.text = self.romans_units[0]
-            elif instance.text == 'Teutons':
+            elif instance.text in ['Teutons','Германцы','Германці']:
                 self.screen.ids.toolbar.ids.nation_icon.source = 'datas/TEUTONS_s.png'
-                self.menu_unit = MDDropdownMenu(caller=self.screen.ids.toolbar.ids.unit_button,items = [{ "text": str(i) } for i in self.teutons_units],width_mult=3,position="bottom",use_icon_item = False,)
+                self.menu_unit = MDDropdownMenu(caller=self.screen.ids.toolbar.ids.unit_button,items = [{ "text": str(i) } for i in self.teutons_units],width_mult=3,position="bottom",use_icon_item = False, callback = self.set_unit)
                 self.screen.ids.toolbar.ids.unit_button.text = self.teutons_units[0]
-            elif instance.text == "Gauls":
+            elif instance.text in ["Gauls",'Галлы','Галли']:
                 self.screen.ids.toolbar.ids.nation_icon.source = 'datas/GAULS_s.png'
-                self.menu_unit = MDDropdownMenu(caller=self.screen.ids.toolbar.ids.unit_button,items = [{ "text": str(i) } for i in self.gauls_units],width_mult=3,position="bottom",use_icon_item = False,)
+                self.menu_unit = MDDropdownMenu(caller=self.screen.ids.toolbar.ids.unit_button,items = [{ "text": str(i) } for i in self.gauls_units],width_mult=3,position="bottom",use_icon_item = False, callback = self.set_unit)
                 self.screen.ids.toolbar.ids.unit_button.text = self.gauls_units[0]
-        Clock.schedule_once(set_nation, 0.5)
-        
+        Clock.schedule_once(set_nation)
+        conn = sqlite3.connect(db_name)
+        cursor = conn.cursor()
+        cursor.execute("UPDATE settings_db SET value = ? WHERE option = 'nation'",(instance.text,))
+        conn.commit()
     def set_aliance(self, instance):
         def set_aliance(interval):
             self.screen.ids.bonus_aliance.text = instance.text  
-        Clock.schedule_once(set_aliance, 0.5)
+        Clock.schedule_once(set_aliance, 0.05)
     def set_helmet(self, instance):
         def set_helmet(interval):
             self.screen.ids.bonus_helmet.text = instance.text  
-        Clock.schedule_once(set_helmet, 0.5)
+        Clock.schedule_once(set_helmet, 0.05)
     def set_artifact(self, instance):
         def set_artifact(interval):
             self.screen.ids.bonus_artefact.text = instance.text  
-        Clock.schedule_once(set_artifact, 0.5)
+        Clock.schedule_once(set_artifact, 0.05)
     def set_houselvl(self, instance):
         def set_houselvl(interval):
             self.screen.ids.house_lvl.text = instance.text  
-        Clock.schedule_once(set_houselvl, 0.5)     
+        Clock.schedule_once(set_houselvl, 0.05)     
     def set_unitlvl(self, instance):
         def set_unitlvl(interval):
             self.screen.ids.unit_lvl.text = instance.text
-        Clock.schedule_once(set_unitlvl, 0.5)
+        Clock.schedule_once(set_unitlvl, 0.05)
         
     def build(self):
         Window.size = (450,810)
         return self.screen
     
     def calc_func(self):
-        print(self.romans_units)
+        conn = sqlite3.connect(db_name)
+        cursor = conn.cursor()
+        #q = "SELECT {0} FROM language_db WHERE widget_id = {1}".format(language, key)
+        #cursor.execute(q)
+        print(self.screen.ids.toolbar.ids.unit_button.text)
         def change_info(interval):
             self.screen.ids.l_food.text = '0'
-        Clock.schedule_once(change_info, 0.5)
+        Clock.schedule_once(change_info, 0.05)
         
     def change_language_in(self,language):
         def update_screen(interval):
@@ -223,7 +230,7 @@ class Test(MDApp):
                                              callback=self.set_houselvl,position="bottom",use_icon_item = False,)
             self.menu_unit_lvl = MDDropdownMenu(caller=self.screen.ids.unit_lvl, items=[{ "text": str(i) } for i in range(21)],width_mult=3,
                                             callback=self.set_unitlvl,position="bottom",use_icon_item = False,)
-            self.menu_unit = MDDropdownMenu(caller=self.screen.ids.toolbar.ids.unit_button,items = [{ "text": '' }],width_mult=3,position="bottom",use_icon_item = False,)
+            self.menu_unit = MDDropdownMenu(caller=self.screen.ids.toolbar.ids.unit_button,items = [{ "text": '' }],width_mult=3,position="bottom",use_icon_item = False, callback = self.set_unit)
             self.menu_bonus_aliance = MDDropdownMenu(caller=self.screen.ids.bonus_aliance, items=[{ "text": str(i) } for i in self.items_bonus_aliance],
                                                  width_mult=3,position="bottom",use_icon_item = False,callback = self.set_aliance)
             self.menu_bonus_artefact = MDDropdownMenu(caller=self.screen.ids.bonus_artefact, items=[{ "text": str(i) } for i in self.items_bonus_artefact],
@@ -235,6 +242,6 @@ class Test(MDApp):
             self.menu_min = MDDropdownMenu(caller=self.screen.ids.time_board.ids.min_in, items=[{ "text": str(i) + '\n' + self.screen.ids.time_board.ids.min_in.text } for i in range(60)],width_mult=2,
                                        callback=self.set_min, position="bottom",use_icon_item = False,)
             conn.close()
-        Clock.schedule_once(update_screen,0.5)
+        Clock.schedule_once(update_screen,0.05)
         
 Test().run()
