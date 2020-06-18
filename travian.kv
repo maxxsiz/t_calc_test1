@@ -4,8 +4,7 @@
     height: self.theme_cls.standard_increment
     padding: "5dp"
     ###spacing: "12dp"
-
-    NationCustomIcon:
+    Image:
         id: nation_icon
         size_hint: None, None
         pos_hint: {"center_y": .5}
@@ -56,6 +55,7 @@ Screen:
                 rgba: 1, 1, 1, 1
     FitImage:
         source: 'datas/fons.jpg'
+
     BoxLayout:
         orientation: "vertical"
         CustomToolbar:
@@ -408,5 +408,7 @@ Screen:
             source: 'datas/US.png'
             size_hint: 0.1, 0.1
             pos_hint:{"center_y": .035,"center_x": .75} 
-            on_press:app.change_language_in('eng')   
+            on_press:app.change_language_in('eng')
+
+
            	

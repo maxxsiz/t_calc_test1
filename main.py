@@ -64,23 +64,20 @@ class Test(MDApp):
             
         self.gauls_units, self.teutons_units, self.romans_units, self.items_bonus_helmet, self.items_nation, self.items_bonus_artefact, self.items_bonus_aliance = empty[0],empty[1],empty[2],empty[3],empty[4],empty[5],empty[6]
         if self.st_nation in ["Gauls",'Галлы','Галли']:
-            print('gauls')
             self.screen.ids.toolbar.ids.unit_button.text = self.gauls_units[0]
             self.screen.ids.toolbar.ids.nation_button.text = self.items_nation[0]
             self.item_units = self.gauls_units
-            self.screen.ids.toolbar.ids.nation_icon.source = "datas/gauls.png"
+            self.screen.ids.toolbar.ids.nation_icon.source = "datas/GAULS_s.png"
         elif self.st_nation in ['Teutons','Германцы','Германці']:
-            print('teutons')
             self.screen.ids.toolbar.ids.unit_button.text = self.teutons_units[0]
             self.screen.ids.toolbar.ids.nation_button.text = self.items_nation[2]
             self.item_units = self.teutons_units
-            self.screen.ids.toolbar.ids.nation_icon.source = "datas/teutons.png"
+            self.screen.ids.toolbar.ids.nation_icon.source = "datas/TEUTONS_s.png"
         elif self.st_nation in ['Romans','Римляни','Римляне']:
-            print('romans')
             self.screen.ids.toolbar.ids.unit_button.text = self.romans_units[0]
             self.screen.ids.toolbar.ids.nation_button.text = self.items_nation[1]
             self.item_units = self.romans_units
-            self.screen.ids.toolbar.ids.nation_icon.source = "datas/romans.png"
+            self.screen.ids.toolbar.ids.nation_icon.source = "datas/ROMANS_s.png"
             
         db_widgets_text = {"'l_res'":self.screen.ids.l_res,"'l_food'":self.screen.ids.l_food,"'l_iron'":self.screen.ids.l_iron,"'house_lvl'":self.screen.ids.house_lvl,
                           "'unit_button'":self.screen.ids.toolbar.ids.unit_button,
@@ -129,7 +126,6 @@ class Test(MDApp):
             self.screen.ids.time_board.ids.min_in.text = instance.text
         Clock.schedule_once(set_min, 0.05)
     def set_unit(self, instance):
-        print('unit ok')
         def set_unit(interval):
             self.screen.ids.toolbar.ids.unit_button.text = instance.text
         Clock.schedule_once(set_unit, 0.05)   
@@ -176,7 +172,7 @@ class Test(MDApp):
         Clock.schedule_once(set_unitlvl, 0.05)
         
     def build(self):
-        Window.size = (450,810)
+        Window.size = (500,810)
         return self.screen
     
     def calc_func(self):
