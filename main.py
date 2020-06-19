@@ -19,10 +19,8 @@ import re
 
 Config.set('graphics', 'resizable',  False )
 db_name = "db_travian_test2.db"
-
+Clock.max_iteration = 20
 class LanguageImage(CircularRippleBehavior, ButtonBehavior, Image):
-    pass
-class NationCustomIcon(CircularRippleBehavior, ButtonBehavior, Image):
     pass
 class NationCustomLabel(CircularRippleBehavior, ButtonBehavior, MDLabel):
     pass
@@ -54,7 +52,6 @@ class Test(MDApp):
         cursor.execute("SELECT value FROM settings_db WHERE option = 'nation'")
         self.st_nation = cursor.fetchone()[0] # нация з налаштувань
         empty = []
-        
         for key in widget_menu:
             q = "SELECT {0} FROM language_db WHERE widget_id = {1}".format(st_language, key)
             cursor.execute(q)
@@ -78,7 +75,6 @@ class Test(MDApp):
             self.screen.ids.toolbar.ids.nation_button.text = self.items_nation[1]
             self.item_units = self.romans_units
             self.screen.ids.toolbar.ids.nation_icon.source = "datas/ROMANS_s.png"
-            
         db_widgets_text = {"'l_res'":self.screen.ids.l_res,"'l_food'":self.screen.ids.l_food,"'l_iron'":self.screen.ids.l_iron,"'house_lvl'":self.screen.ids.house_lvl,
                           "'unit_button'":self.screen.ids.toolbar.ids.unit_button,
                           "'artifact'":self.screen.ids.bonus_artefact,"'helmet'":self.screen.ids.bonus_helmet,"'aliance'":self.screen.ids.bonus_aliance,
@@ -97,7 +93,6 @@ class Test(MDApp):
             cursor.execute(q)
             values.title = cursor.fetchone()[0]
         conn.close()
-        
         self.menu_nation = MDDropdownMenu(caller=self.screen.ids.toolbar.ids.nation_button, items=[{ "text": str(i) } for i in self.items_nation],
                                           use_icon_item = False,position="bottom", width_mult=2, callback = self.set_nation)
         self.menu_house_lvl = MDDropdownMenu(caller=self.screen.ids.house_lvl, items=[{ "text": str(i) } for i in range(21)],width_mult=3,
@@ -131,7 +126,9 @@ class Test(MDApp):
         Clock.schedule_once(set_unit, 0.05)   
 
     def set_nation(self, instance):
+        print('2')
         def set_nation(interval):
+            print('1')
             self.screen.ids.toolbar.ids.nation_button.text = instance.text
             if instance.text in ['Romans','Римляни','Римляне']:
                 self.screen.ids.toolbar.ids.nation_icon.source = 'datas/ROMANS_s.png'
@@ -145,7 +142,7 @@ class Test(MDApp):
                 self.screen.ids.toolbar.ids.nation_icon.source = 'datas/GAULS_s.png'
                 self.menu_unit = MDDropdownMenu(caller=self.screen.ids.toolbar.ids.unit_button,items = [{ "text": str(i) } for i in self.gauls_units],width_mult=3,position="bottom",use_icon_item = False, callback = self.set_unit)
                 self.screen.ids.toolbar.ids.unit_button.text = self.gauls_units[0]
-        Clock.schedule_once(set_nation)
+        Clock.schedule_once(set_nation, 0)
         conn = sqlite3.connect(db_name)
         cursor = conn.cursor()
         cursor.execute("UPDATE settings_db SET value = ? WHERE option = 'nation'",(instance.text,))
