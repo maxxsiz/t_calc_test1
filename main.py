@@ -175,9 +175,28 @@ class Test(MDApp):
     def calc_func(self):
         conn = sqlite3.connect(db_name)
         cursor = conn.cursor()
-        #q = "SELECT {0} FROM language_db WHERE widget_id = {1}".format(language, key)
-        #cursor.execute(q)
-        print(self.screen.ids.toolbar.ids.unit_button.text)
+        print(self.screen.ids.time_board.ids.hours_in.text)
+        print(self.screen.ids.time_board.ids.min_in.text)
+        print(self.screen.ids.house_lvl.text)
+        print(self.screen.ids.unit_lvl.text)
+        print(self.screen.ids.bonus_aliance.text)
+        print(self.screen.ids.bonus_artefact.text)
+        print(self.screen.ids.bonus_helmet.text)
+        if self.screen.ids.toolbar.ids.nation_button.text in ["Gauls",'Галлы','Галли']:
+            q = "SELECT type,training_time,traning_wood,training_clay,training_iron,training_crop,use_crop,def_inf,def_cav,att_power,unit_name FROM unit_db WHERE unit_id = {0}".format('1'+str(self.menu_unit.items.index({"text": self.screen.ids.toolbar.ids.unit_button.text })))
+            cursor.execute(q)
+            info = cursor.fetchone()
+            print(info)
+        elif self.screen.ids.toolbar.ids.nation_button.text in ['Teutons','Германцы','Германці']:
+            q = "SELECT type,training_time,traning_wood,training_clay,training_iron,training_crop,use_crop,def_inf,def_cav,att_power,unit_name FROM unit_db WHERE unit_id = {0}".format('3'+str(self.menu_unit.items.index({"text": self.screen.ids.toolbar.ids.unit_button.text })))
+            cursor.execute(q)
+            info = cursor.fetchone()
+            print(info)
+        elif self.screen.ids.toolbar.ids.nation_button.text in ['Romans','Римляни','Римляне']:
+            q = "SELECT type,training_time,traning_wood,training_clay,training_iron,training_crop,use_crop,def_inf,def_cav,att_power,unit_name FROM unit_db WHERE unit_id = {0}".format('2'+str(self.menu_unit.items.index({"text": self.screen.ids.toolbar.ids.unit_button.text })))
+            cursor.execute(q)
+            info = cursor.fetchone()
+            print(info)
         def change_info(interval):
             self.screen.ids.l_food.text = '0'
         Clock.schedule_once(change_info, 0.05)
