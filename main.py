@@ -126,9 +126,7 @@ class Test(MDApp):
         Clock.schedule_once(set_unit, 0.05)   
 
     def set_nation(self, instance):
-        print('2')
         def set_nation(interval):
-            print('1')
             self.screen.ids.toolbar.ids.nation_button.text = instance.text
             if instance.text in ['Romans','Римляни','Римляне']:
                 self.screen.ids.toolbar.ids.nation_icon.source = 'datas/ROMANS_s.png'
@@ -173,15 +171,58 @@ class Test(MDApp):
         return self.screen
     
     def calc_func(self):
+        house_lvl = re.match(r'\d{2}',self.screen.ids.house_lvl.text) or re.match(r'\d{1}',self.screen.ids.house_lvl.text)
+        unit_lvl = re.match(r'\d{2}',self.screen.ids.unit_lvl.text) or re.match(r'\d{1}',self.screen.ids.unit_lvl.text)
+        if self.screen.ids.toolbar.ids.nation_button.text in ['Choose nation','Выберите нацию','Виберіть народ']:
+            return print('choose unit')
+        if self.screen.ids.toolbar.ids.unit_button.text in ['Choose unit','Выбери воина','Вибери воїна']:
+            return print('choose unit')
+        if house_lvl:
+            house_lvl = house_lvl.group(0)
+        else:
+            return print('choose house lvl')
+        if unit_lvl:
+            unit_lvl = int(unit_lvl.group(0))
+        else:
+            print('your unit lvl is 0')
+            unit_lvl = 0
+        
+        craft_time_min = re.match(r'\d{2}',self.screen.ids.time_board.ids.min_in.text) or re.match(r'\d{1}',self.screen.ids.time_board.ids.min_in.text)
+        craft_time_hours = re.match(r'\d{2}',self.screen.ids.time_board.ids.hours_in.text) or re.match(r'\d{1}',self.screen.ids.time_board.ids.hours_in.text)
+        if craft_time_min:
+            craft_time_min = int(craft_time_min.group(0))
+        else: 
+            craft_time_min = 0
+        if craft_time_hours:
+            craft_time_hours = int(craft_time_hours.group(0))
+        else: craft_time_hours = 0
+
+        craft_time = 60 * int(craft_time_min) + 3600 * int(craft_time_hours)
+        
+        b_aliance = re.match(r'\d{2}',self.screen.ids.bonus_aliance.text) or re.match(r'\d{1}',self.screen.ids.bonus_aliance.text)
+        if b_aliance:
+            b_aliance = b_aliance.group(0)
+        else:
+            b_aliance = 0
+        
+        b_artefact = re.match(r'\d{2}',self.screen.ids.bonus_artefact.text) or re.match(r'\d{1}',self.screen.ids.bonus_artefact.text)
+        if b_artefact:
+            b_artefact = b_artefact.group(0)
+        else:
+            b_artefact = 0
+        
+        b_helmet = re.match(r'\d{2}',self.screen.ids.bonus_helmet.text) or re.match(r'\d{1}',self.screen.ids.bonus_helmet.text)
+        if b_helmet:
+            b_helmet = b_helmet.group(0)
+        else:
+            b_helmet = 0
+        print(unit_lvl)
+        print(str(craft_time) + ' sekund')
+        print(str(b_helmet) + ' helmet')
+        print(str(b_aliance) + ' aliance')
+        print(str(b_artefact) + ' artefact')
         conn = sqlite3.connect(db_name)
         cursor = conn.cursor()
-        print(self.screen.ids.time_board.ids.hours_in.text)
-        print(self.screen.ids.time_board.ids.min_in.text)
-        print(self.screen.ids.house_lvl.text)
-        print(self.screen.ids.unit_lvl.text)
-        print(self.screen.ids.bonus_aliance.text)
-        print(self.screen.ids.bonus_artefact.text)
-        print(self.screen.ids.bonus_helmet.text)
         if self.screen.ids.toolbar.ids.nation_button.text in ["Gauls",'Галлы','Галли']:
             q = "SELECT type,training_time,traning_wood,training_clay,training_iron,training_crop,use_crop,def_inf,def_cav,att_power,unit_name FROM unit_db WHERE unit_id = {0}".format('1'+str(self.menu_unit.items.index({"text": self.screen.ids.toolbar.ids.unit_button.text })))
             cursor.execute(q)
@@ -197,6 +238,8 @@ class Test(MDApp):
             cursor.execute(q)
             info = cursor.fetchone()
             print(info)
+        else:
+            return print('choose nation')
         def change_info(interval):
             self.screen.ids.l_food.text = '0'
         Clock.schedule_once(change_info, 0.05)
