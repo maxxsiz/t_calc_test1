@@ -169,26 +169,39 @@ Screen:
                         Rectangle:
                             pos: self.pos
                             size: self.size
-                MDLabel:	
-                    id: l_unit_name
-                    text: "unit name"
-                    halign:"center"
-                    canvas.before:
-                        Color: 
-                            rgb: app.rowcolor_1
-                        Rectangle:
-                            pos: self.pos
-                            size: self.size
-                MDLabel:
-                    id: l_unit_count
-                    halign:"center"
-                    text: "unit count"
-                    canvas.before:
-                        Color: 
-                            rgb: app.rowcolor_1
-                        Rectangle:
-                            pos: self.pos
-                            size: self.size
+                BoxLayout:
+                    orientation: 'vertical'
+                    MDLabel:	
+                        id: l_unit_name
+                        text: "unit name"
+                        halign:"center"
+                        canvas.before:
+                            Color: 
+                                rgb: app.rowcolor_1
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                BoxLayout:
+                    orientation: 'vertical'
+                    MDLabel:
+                        id: l_unit_count
+                        halign:"center"
+                        text: "Unit count"
+                        canvas.before:
+                            Color: 
+                                rgb: app.rowcolor_1
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                    MDLabel:
+                        id: i_unit_count
+                        halign:"center"
+                        canvas.before:
+                            Color: 
+                                rgb: app.rowcolor_1
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size                  
         Widget: 
             size_hint: 1, 0.05
         BoxLayout:
@@ -212,16 +225,25 @@ Screen:
                         Rectangle:
                             pos: self.pos
                             size: self.size
-                MDLabel:
-                    halign:"center"
-                    id: l_def_inf
-                    text: "def inflantry"
-                    canvas.before:
-                        Color: 
-                            rgb: app.rowcolor_2
-                        Rectangle:
-                            pos: self.pos
-                            size: self.size
+                BoxLayout:
+                    orientation: "vertical"
+                    MDLabel:
+                        id: l_def_inf
+                        text: "def inflantry"
+                        canvas.before:
+                            Color: 
+                                rgb: app.rowcolor_2
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                    MDLabel:
+                        id: i_def_inf
+                        canvas.before:
+                            Color: 
+                                rgb: app.rowcolor_2
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
                 Image:
                     source:'datas/def_cav.png'
                     pos_hint: {"left":1,"center_y":1}
@@ -231,16 +253,25 @@ Screen:
                         Rectangle:
                             pos: self.pos
                             size: self.size
-                MDLabel:
-                    halign:"center"
-                    id: l_def_cav
-                    text: "def cavalery"
-                    canvas.before:
-                        Color: 
-                            rgb: app.rowcolor_1
-                        Rectangle:
-                            pos: self.pos
-                            size: self.size
+                BoxLayout:
+                    orientation: "vertical"
+                    MDLabel:
+                        id: l_def_cav
+                        text: "def cavalery"
+                        canvas.before:
+                            Color: 
+                                rgb: app.rowcolor_1
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                    MDLabel:
+                        id: i_def_cav
+                        canvas.before:
+                            Color: 
+                                rgb: app.rowcolor_1
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
                 Image:
                     source:'datas/def_cav.png'
                     canvas.before:
@@ -249,15 +280,25 @@ Screen:
                         Rectangle:
                             pos: self.pos
                             size: self.size
-                MDLabel:
-                    id: l_def
-                    text: "all deff"
-                    canvas.before:
-                        Color: 
-                            rgb: app.rowcolor_2
-                        Rectangle:
-                            pos: self.pos
-                            size: self.size
+                BoxLayout:
+                    orientation: "vertical"
+                    MDLabel:
+                        id: l_def
+                        text: "all deff"
+                        canvas.before:
+                            Color: 
+                                rgb: app.rowcolor_2
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                    MDLabel:
+                        id: i_def
+                        canvas.before:
+                            Color: 
+                                rgb: app.rowcolor_2
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
                 Image:
                     source:'datas/att_power.png'
                     canvas.before:
@@ -266,15 +307,25 @@ Screen:
                         Rectangle:
                             pos: self.pos
                             size: self.size
-                MDLabel:
-                    id: l_attpow
-                    text: "attack power"
-                    canvas.before:
-                        Color: 
-                            rgb: app.rowcolor_1
-                        Rectangle:
-                            pos: self.pos
-                            size: self.size
+                BoxLayout:
+                    orientation: "vertical"
+                    MDLabel:
+                        id: l_attpow
+                        text: "attack power"
+                        canvas.before:
+                            Color: 
+                                rgb: app.rowcolor_1
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                    MDLabel:
+                        id: i_attpow
+                        canvas.before:
+                            Color: 
+                                rgb: app.rowcolor_1
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
                 Image:
                     source:'datas/usefood.png'
                     canvas.before:
@@ -283,16 +334,25 @@ Screen:
                         Rectangle:
                             pos: self.pos
                             size: self.size
-                MDLabel:
-                    id: l_usefood
-                    text: "use food"
-                    canvas.before:
-                        Color: 
-                            rgb: app.rowcolor_2
-                        Rectangle:
-                            pos: self.pos
-                            size: self.size
-
+                BoxLayout:
+                    orientation: "vertical"
+                    MDLabel:
+                        id: l_usefood
+                        text: "use food"
+                        canvas.before:
+                            Color: 
+                                rgb: app.rowcolor_2
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                    MDLabel:
+                        id: i_usefood
+                        canvas.before:
+                            Color: 
+                                rgb: app.rowcolor_2
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
             GridLayout:
                 padding: 3,3,3,3
                 cols: 2
@@ -305,15 +365,25 @@ Screen:
                         Rectangle:
                             pos: self.pos
                             size: self.size
-                MDLabel:
-                    id: l_wood
-                    text: "wood"
-                    canvas.before:
-                        Color: 
-                            rgb: app.rowcolor_2
-                        Rectangle:
-                            pos: self.pos
-                            size: self.size
+                BoxLayout:
+                    orientation: "vertical"
+                    MDLabel:
+                        id: l_wood
+                        text: "wood"
+                        canvas.before:
+                            Color: 
+                                rgb: app.rowcolor_2
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                    MDLabel:
+                        id: i_wood
+                        canvas.before:
+                            Color: 
+                                rgb: app.rowcolor_2
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
 
                 Image:
                     source:'datas/clay.png'
@@ -323,15 +393,25 @@ Screen:
                         Rectangle:
                             pos: self.pos
                             size: self.size
-                MDLabel:
-                    id: l_clay
-                    text: "clay"
-                    canvas.before:
-                        Color: 
-                            rgb: app.rowcolor_1
-                        Rectangle:
-                            pos: self.pos
-                            size: self.size
+                BoxLayout:
+                    orientation: "vertical"
+                    MDLabel:
+                        id: l_clay
+                        text: "clay"
+                        canvas.before:
+                            Color: 
+                                rgb: app.rowcolor_1
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                    MDLabel:
+                        id: i_clay
+                        canvas.before:
+                            Color: 
+                                rgb: app.rowcolor_1
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
 
                 Image:
                     source:'datas/iron.png'
@@ -341,15 +421,25 @@ Screen:
                         Rectangle:
                             pos: self.pos
                             size: self.size
-                MDLabel:
-                    id: l_iron
-                    text: "iron"
-                    canvas.before:
-                        Color: 
-                            rgb: app.rowcolor_2
-                        Rectangle:
-                            pos: self.pos
-                            size: self.size
+                BoxLayout:
+                    orientation: "vertical"
+                    MDLabel:
+                        id: l_iron
+                        text: "iron"
+                        canvas.before:
+                            Color: 
+                                rgb: app.rowcolor_2
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                    MDLabel:
+                        id: i_iron
+                        canvas.before:
+                            Color: 
+                                rgb: app.rowcolor_2
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
 
                 Image:
                     source:'datas/food.png'
@@ -359,15 +449,25 @@ Screen:
                         Rectangle:
                             pos: self.pos
                             size: self.size
-                MDLabel:
-                    id: l_food
-                    text: "food"
-                    canvas.before:
-                        Color: 
-                            rgb: app.rowcolor_1
-                        Rectangle:
-                            pos: self.pos
-                            size: self.size
+                BoxLayout:
+                    orientation: "vertical"
+                    MDLabel:
+                        id: l_food
+                        text: "food"
+                        canvas.before:
+                            Color: 
+                                rgb: app.rowcolor_1
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                    MDLabel:
+                        id: i_food
+                        canvas.before:
+                            Color: 
+                                rgb: app.rowcolor_1
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
 
                 Image:
                     source:'datas/resurses.png'
@@ -377,15 +477,25 @@ Screen:
                         Rectangle:
                             pos: self.pos
                             size: self.size
-                MDLabel:
-                    id: l_res
-                    text: "all resourses"
-                    canvas.before:
-                        Color: 
-                            rgb: app.rowcolor_2
-                        Rectangle:
-                            pos: self.pos
-                            size: self.size
+                BoxLayout:
+                    orientation: "vertical"
+                    MDLabel:
+                        id: l_res
+                        text: "all resourses"
+                        canvas.before:
+                            Color: 
+                                rgb: app.rowcolor_2
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                    MDLabel:
+                        id: i_res
+                        canvas.before:
+                            Color: 
+                                rgb: app.rowcolor_2
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
         MDBottomAppBar:
             MDToolbar:
                 id: calc_button
