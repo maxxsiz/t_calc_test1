@@ -244,17 +244,17 @@ class Test(MDApp):
         print(str(total_bonus) + 'total bonus')
         def change_info(interval):
             self.screen.ids.l_unit_name.text = str(info[10])
-            self.screen.ids.i_unit_count.text = str(count_of_unit)
-            self.screen.ids.i_def_inf.text = str(info[8]*count_of_unit)
-            self.screen.ids.i_def_cav.text = str(info[9]*count_of_unit)
-            self.screen.ids.i_def.text = str(info[2]*count_of_unit)
-            self.screen.ids.i_attpow.text = str(info[9]*count_of_unit)
-            self.screen.ids.i_usefood.text = str(info[7]*count_of_unit)
-            self.screen.ids.i_wood.text = str(info[2]*count_of_unit)
-            self.screen.ids.i_clay.text = str(info[4]*count_of_unit)
-            self.screen.ids.i_iron.text = str(info[5]*count_of_unit)
-            self.screen.ids.i_food.text = str(info[6]*count_of_unit)
-            self.screen.ids.i_res.text = str(info[5]*count_of_unit + info[6]*count_of_unit + info[4]*count_of_unit + info[2]*count_of_unit)
+            self.screen.ids.i_unit_count.text ='{0:,}'.format(count_of_unit).replace(',', ' ')
+            self.screen.ids.i_def_inf.text = '{0:,}'.format(info[7]*count_of_unit).replace(',', ' ')
+            self.screen.ids.i_def_cav.text ='{0:,}'.format(info[8]*count_of_unit).replace(',', ' ')
+            self.screen.ids.i_def.text = '{0:,}'.format(info[8]*count_of_unit + info[7]*count_of_unit).replace(',', ' ')
+            self.screen.ids.i_attpow.text = '{0:,}'.format(info[9]*count_of_unit).replace(',', ' ')
+            self.screen.ids.i_usefood.text = '{0:,}'.format(info[6]*count_of_unit).replace(',', ' ')
+            self.screen.ids.i_wood.text = '{0:,}'.format(info[2]*count_of_unit).replace(',', ' ')
+            self.screen.ids.i_clay.text = '{0:,}'.format(info[3]*count_of_unit).replace(',', ' ')
+            self.screen.ids.i_iron.text = '{0:,}'.format(info[4]*count_of_unit).replace(',', ' ')
+            self.screen.ids.i_food.text ='{0:,}'.format(info[5]*count_of_unit).replace(',', ' ')
+            self.screen.ids.i_res.text = '{0:,}'.format(info[5]*count_of_unit + info[3]*count_of_unit + info[4]*count_of_unit + info[2]*count_of_unit).replace(',', ' ')
         Clock.schedule_once(change_info, 0.05)
         
     def change_language_in(self,language):
@@ -294,7 +294,7 @@ class Test(MDApp):
             self.gauls_units, self.teutons_units, self.romans_units, self.items_bonus_helmet, self.items_nation, self.items_bonus_artefact, self.items_bonus_aliance = empty[0],empty[1],empty[2],empty[3],empty[4],empty[5],empty[6]
             self.menu_nation = MDDropdownMenu(caller=self.screen.ids.toolbar.ids.nation_button, items=[{ "text": str(i) } for i in self.items_nation],
                                           use_icon_item = False,position="bottom", width_mult=2, callback = self.set_nation)
-            self.menu_house_lvl = MDDropdownMenu(caller=self.screen.ids.house_lvl, items=[{ "text": str(i) } for i in range(21)],width_mult=3,
+            self.menu_house_lvl = MDDropdownMenu(caller=self.screen.ids.house_lvl, items=[{ "text": str(i) } for i in range(1,21)],width_mult=3,
                                              callback=self.set_houselvl,position="bottom",use_icon_item = False,)
             self.menu_unit_lvl = MDDropdownMenu(caller=self.screen.ids.unit_lvl, items=[{ "text": str(i) } for i in range(21)],width_mult=3,
                                             callback=self.set_unitlvl,position="bottom",use_icon_item = False,)
