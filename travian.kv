@@ -10,6 +10,7 @@
         pos_hint: {"center_y": .5}
     MDFillRoundFlatIconButton:
         id: nation_button
+        font_style: 'Button'
         icon: 'chevron-down'	
         md_bg_color: 0, 0.5, 1, 1
         pos_hint: {"center_y": .5}
@@ -20,6 +21,7 @@
         size_hint: 0.03,1
     MDFillRoundFlatIconButton:
         id: unit_button
+        font_style: 'Button'
         icon: 'chevron-down'
         md_bg_color: 0, 0.5, 1, 1
         pos_hint: {"center_y": .5}
@@ -33,17 +35,19 @@
         MDRectangleFlatButton:
             md_bg_color: 0, 0.75, 1, 1
             id: hours_in
+            font_style: 'Button'
             text_color: 0, 0, 1, 1
-            size_hint: 0.4, 1
+            size_hint: 0.3, 1
             on_release: app.menu_hours.open()
         MDLabel:
             text: '  :'
-            size_hint: 0.2, 1
+            size_hint: 0.15, 1
         MDRectangleFlatButton:
             md_bg_color: 0, 0.75, 1, 1
             id: min_in
+            font_style: 'Button'
             text_color: 0, 0, 1, 1
-            size_hint: 0.4, 1
+            size_hint: 0.3, 1
             on_release: app.menu_min.open()
 
 Screen:
@@ -76,11 +80,11 @@ Screen:
                 id: house_lvl
                 text: 'house_lvl'
                 icon: 'chevron-down'
-                size_hint: 0.6, None
+                size_hint: 0.7, None
                 pos_hint: {"center_y": .5,"center_x": .25}
                 on_release: app.menu_house_lvl.open()
             Widget:
-                size_hint: 0.4, 1
+                size_hint: 0.2, 1
             MDFillRoundFlatIconButton:
                 id: bonus_aliance
                 text: 'Aliance'
@@ -103,11 +107,11 @@ Screen:
                 id: unit_lvl
                 text: 'Unit level'
                 icon: 'chevron-down'
-                size_hint: 0.6, None
+                size_hint: 0.7, None
                 pos_hint: {"center_y": .5,"center_x": .25}
                 on_release: app.menu_unit_lvl.open()
             Widget:
-                size_hint: 0.4, 1
+                size_hint: 0.2, 1
             MDFillRoundFlatIconButton:
                 id: bonus_artefact
                 text: 'Artefact'
@@ -133,10 +137,10 @@ Screen:
                 #pos_hint: {"center_x": .25,"center_y": .5}
             CustomClock:
                 id: time_board
-                size_hint: 0.5, 0.6
+                size_hint: 0.7, 0.6
                 pos_hint: {"center_x": .25,"center_y": .5}
             Widget:
-                size_hint: 0.4, 1
+                size_hint: 0.2, 1
             MDFillRoundFlatIconButton:
                 id: bonus_helmet
                 text: 'Helmet'
@@ -162,6 +166,7 @@ Screen:
                 padding: 3,3,3,3
                 cols: 3
                 Image:
+                    size_hint: 0.3, 1
                     source:'datas/def_inf.png'
                     canvas.before:
                         Color: 
@@ -185,6 +190,7 @@ Screen:
                     orientation: 'vertical'
                     MDLabel:
                         id: l_unit_count
+                        theme_text_color: 'Hint'
                         halign:"center"
                         text: "Unit count"
                         canvas.before:
@@ -218,6 +224,7 @@ Screen:
                 padding: 3,3,0,3
                 cols: 2
                 Image:
+                    size_hint: 0.3, 1
                     source:'datas/def_inf.png'
                     canvas.before:
                         Color: 
@@ -229,6 +236,7 @@ Screen:
                     orientation: "vertical"
                     MDLabel:
                         halign:"center"
+                        theme_text_color: 'Hint'
                         id: l_def_inf
                         text: "Def inflantry"
                         canvas.before:
@@ -247,6 +255,7 @@ Screen:
                                 pos: self.pos
                                 size: self.size
                 Image:
+                    size_hint: 0.3, 1
                     source:'datas/def_cav.png'
                     pos_hint: {"left":1,"center_y":1}
                     canvas.before:
@@ -259,6 +268,7 @@ Screen:
                     orientation: "vertical"
                     MDLabel:
                         halign:"center"
+                        theme_text_color: 'Hint'
                         id: l_def_cav
                         text: "Def cavalery"
                         canvas.before:
@@ -277,6 +287,7 @@ Screen:
                                 pos: self.pos
                                 size: self.size
                 Image:
+                    size_hint: 0.3, 1
                     source:'datas/def_cav.png'
                     canvas.before:
                         Color: 
@@ -288,6 +299,7 @@ Screen:
                     orientation: "vertical"
                     MDLabel:
                         halign:"center"
+                        theme_text_color: 'Hint'
                         id: l_def
                         text: "All deff"
                         canvas.before:
@@ -306,6 +318,7 @@ Screen:
                                 pos: self.pos
                                 size: self.size
                 Image:
+                    size_hint: 0.3, 1
                     source:'datas/att_power.png'
                     canvas.before:
                         Color: 
@@ -319,6 +332,7 @@ Screen:
                         halign:"center"
                         id: l_attpow
                         text: "Attack power"
+                        theme_text_color: 'Hint'
                         canvas.before:
                             Color: 
                                 rgb: app.rowcolor_1
@@ -335,6 +349,7 @@ Screen:
                                 pos: self.pos
                                 size: self.size
                 Image:
+                    size_hint: 0.3, 1
                     source:'datas/usefood.png'
                     canvas.before:
                         Color: 
@@ -348,6 +363,7 @@ Screen:
                         halign:"center"
                         id: l_usefood
                         text: "Crop use"
+                        theme_text_color: 'Hint'
                         canvas.before:
                             Color: 
                                 rgb: app.rowcolor_2
@@ -368,6 +384,7 @@ Screen:
                 cols: 2
 
                 Image:
+                    size_hint: 0.3, 1
                     source:'datas/wood.png'
                     canvas.before:
                         Color: 
@@ -380,6 +397,7 @@ Screen:
                     MDLabel:
                         halign:"center"
                         id: l_wood
+                        theme_text_color: 'Hint'
                         text: "Wood"
                         canvas.before:
                             Color: 
@@ -398,6 +416,7 @@ Screen:
                                 size: self.size
 
                 Image:
+                    size_hint: 0.3, 1
                     source:'datas/clay.png'
                     canvas.before:
                         Color: 
@@ -409,6 +428,7 @@ Screen:
                     orientation: "vertical"
                     MDLabel:
                         halign:"center"
+                        theme_text_color: 'Hint'
                         id: l_clay
                         text: "Clay"
                         canvas.before:
@@ -428,6 +448,7 @@ Screen:
                                 size: self.size
 
                 Image:
+                    size_hint: 0.3, 1
                     source:'datas/iron.png'
                     canvas.before:
                         Color: 
@@ -439,6 +460,7 @@ Screen:
                     orientation: "vertical"
                     MDLabel:
                         halign:"center"
+                        theme_text_color: 'Hint'
                         id: l_iron
                         text: "Iron"
                         canvas.before:
@@ -458,6 +480,7 @@ Screen:
                                 size: self.size
 
                 Image:
+                    size_hint: 0.3, 1
                     source:'datas/food.png'
                     canvas.before:
                         Color: 
@@ -469,6 +492,7 @@ Screen:
                     orientation: "vertical"
                     MDLabel:
                         halign:"center"
+                        theme_text_color: 'Hint'
                         id: l_food
                         text: "Food"
                         canvas.before:
@@ -488,6 +512,7 @@ Screen:
                                 size: self.size
 
                 Image:
+                    size_hint: 0.3, 1
                     source:'datas/resurses.png'
                     canvas.before:
                         Color: 
@@ -499,6 +524,7 @@ Screen:
                     orientation: "vertical"
                     MDLabel:
                         halign:"center"
+                        theme_text_color: 'Hint'
                         id: l_res
                         text: "All resourses"
                         canvas.before:
