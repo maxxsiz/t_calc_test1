@@ -243,12 +243,13 @@ class Test(MDApp):
         one_unit_time = int(info[1]*house_time_reduce[int(house_lvl)]*total_bonus)
         count_of_unit = int(int(craft_time)/int(one_unit_time))
         def change_info(interval):
+
             self.screen.ids.l_unit_name.text = str(info[10])
             self.screen.ids.i_unit_count.text ='{0:,}'.format(count_of_unit).replace(',', ' ')
-            self.screen.ids.i_def_inf.text = '{0:,}'.format(info[7]*count_of_unit).replace(',', ' ')
-            self.screen.ids.i_def_cav.text ='{0:,}'.format(info[8]*count_of_unit).replace(',', ' ')
-            self.screen.ids.i_def.text = '{0:,}'.format(info[8]*count_of_unit + info[7]*count_of_unit).replace(',', ' ')
-            self.screen.ids.i_attpow.text = '{0:,}'.format(info[9]*count_of_unit).replace(',', ' ')
+            self.screen.ids.i_def_inf.text = '{0:,}'.format(round((info[7] + (info[7] + 300 *  info[6] / 7) * (1.007 ** int(self.screen.ids.unit_lvl.text) - 1))*count_of_unit),1).replace(',', ' ')
+            self.screen.ids.i_def_cav.text ='{0:,}'.format(round((info[8] + (info[8] + 300 *  info[6] / 7) * (1.007 ** int(self.screen.ids.unit_lvl.text) - 1))*count_of_unit),1).replace(',', ' ')
+            self.screen.ids.i_def.text = '{0:,}'.format(round((info[8] + (info[8] + 300 *  info[6] / 7) * (1.007 ** int(self.screen.ids.unit_lvl.text) - 1))*count_of_unit + (info[7] + (info[7] + 300 *  info[6] / 7) * (1.007 ** int(self.screen.ids.unit_lvl.text) - 1))*count_of_unit),1).replace(',', ' ')
+            self.screen.ids.i_attpow.text = '{0:,}'.format(round((info[9] + (info[9] + 300 *  info[6] / 7) * (1.007 ** int(self.screen.ids.unit_lvl.text) - 1))*count_of_unit),1).replace(',', ' ')
             self.screen.ids.i_usefood.text = '{0:,}'.format(info[6]*count_of_unit).replace(',', ' ')
             self.screen.ids.i_wood.text = '{0:,}'.format(info[2]*count_of_unit).replace(',', ' ')
             self.screen.ids.i_clay.text = '{0:,}'.format(info[3]*count_of_unit).replace(',', ' ')
