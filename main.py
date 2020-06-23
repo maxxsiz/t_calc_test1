@@ -122,11 +122,13 @@ class Test(MDApp):
         Clock.schedule_once(set_min, 0.05)
     def set_unit(self, instance):
         def set_unit(interval):
+            self.screen.ids.toolbar.ids.unit_button.theme_text_color = 'Custom'
             self.screen.ids.toolbar.ids.unit_button.text = instance.text
         Clock.schedule_once(set_unit, 0.05)   
 
     def set_nation(self, instance):
         def set_nation(interval):
+            self.screen.ids.toolbar.ids.nation_button.theme_text_color = 'Custom'
             self.screen.ids.toolbar.ids.nation_button.text = instance.text
             if instance.text in ['Romans','Римляни','Римляне']:
                 self.screen.ids.toolbar.ids.nation_icon.source = 'datas/ROMANS_s.png'
@@ -159,10 +161,12 @@ class Test(MDApp):
         Clock.schedule_once(set_artifact, 0.05)
     def set_houselvl(self, instance):
         def set_houselvl(interval):
+            self.screen.ids.house_lvl.theme_text_color = 'Custom'
             self.screen.ids.house_lvl.text = instance.text  
         Clock.schedule_once(set_houselvl, 0.05)     
     def set_unitlvl(self, instance):
         def set_unitlvl(interval):
+            self.screen.ids.unit_lvl.theme_text_color = 'Custom'
             self.screen.ids.unit_lvl.text = instance.text
         Clock.schedule_once(set_unitlvl, 0.05)
         
@@ -175,18 +179,25 @@ class Test(MDApp):
         house_lvl = re.match(r'\d{2}',self.screen.ids.house_lvl.text) or re.match(r'\d{1}',self.screen.ids.house_lvl.text)
         unit_lvl = re.match(r'\d{2}',self.screen.ids.unit_lvl.text) or re.match(r'\d{1}',self.screen.ids.unit_lvl.text)
         if self.screen.ids.toolbar.ids.nation_button.text in ['Choose nation','Выберите нацию','Виберіть народ']:
-            return print('choose unit')
+            def problem(interval):
+                self.screen.ids.toolbar.ids.nation_button.theme_text_color = 'Error'
+            return Clock.schedule_once(problem, 0.05)
         if self.screen.ids.toolbar.ids.unit_button.text in ['Choose unit','Выбери воина','Вибери воїна']:
-            return print('choose unit')
+            def problem(interval):
+                self.screen.ids.toolbar.ids.unit_button.theme_text_color = 'Error'
+            return Clock.schedule_once(problem, 0.05)
         if house_lvl:
             house_lvl = house_lvl.group(0)
         else:
-            return print('choose house lvl')
+            def problem(interval):
+                self.screen.ids.house_lvl.theme_text_color = 'Error'
+            return Clock.schedule_once(problem, 0.05)
         if unit_lvl:
             unit_lvl = int(unit_lvl.group(0))
         else:
-            print('your unit lvl is 0')
-            unit_lvl = 0
+            def problem(interval):
+                self.screen.ids.unit_lvl.theme_text_color = 'Error'
+            return Clock.schedule_once(problem, 0.05)
         
         craft_time_min = re.match(r'\d{2}',self.screen.ids.time_board.ids.min_in.text) or re.match(r'\d{1}',self.screen.ids.time_board.ids.min_in.text)
         craft_time_hours = re.match(r'\d{2}',self.screen.ids.time_board.ids.hours_in.text) or re.match(r'\d{1}',self.screen.ids.time_board.ids.hours_in.text)
@@ -212,36 +223,25 @@ class Test(MDApp):
         if b_helmet:
             total_bonus -= int(b_helmet.group(0))*0.01
 
-
         conn = sqlite3.connect(db_name)
         cursor = conn.cursor()
         if self.screen.ids.toolbar.ids.nation_button.text in ["Gauls",'Галлы','Галли']:
             q = "SELECT type,training_time,traning_wood,training_clay,training_iron,training_crop,use_crop,def_inf,def_cav,att_power,unit_name FROM unit_db WHERE unit_id = {0}".format('1'+str(self.menu_unit.items.index({"text": self.screen.ids.toolbar.ids.unit_button.text })))
             cursor.execute(q)
             info = cursor.fetchone()
-            print(info)
 
         elif self.screen.ids.toolbar.ids.nation_button.text in ['Teutons','Германцы','Германці']:
             q = "SELECT type,training_time,traning_wood,training_clay,training_iron,training_crop,use_crop,def_inf,def_cav,att_power,unit_name FROM unit_db WHERE unit_id = {0}".format('3'+str(self.menu_unit.items.index({"text": self.screen.ids.toolbar.ids.unit_button.text })))
             cursor.execute(q)
             info = cursor.fetchone()
-            print(info)
 
         elif self.screen.ids.toolbar.ids.nation_button.text in ['Romans','Римляни','Римляне']:
             q = "SELECT type,training_time,traning_wood,training_clay,training_iron,training_crop,use_crop,def_inf,def_cav,att_power,unit_name FROM unit_db WHERE unit_id = {0}".format('2'+str(self.menu_unit.items.index({"text": self.screen.ids.toolbar.ids.unit_button.text })))
             cursor.execute(q)
             info = cursor.fetchone()
-            print(info)
-        else:
-            return print('choose nation')
+
         one_unit_time = int(info[1]*house_time_reduce[int(house_lvl)]*total_bonus)
         count_of_unit = int(int(craft_time)/int(one_unit_time))
-
-
-        print(str(one_unit_time) + ' one unit time ' )
-        print(unit_lvl)
-        print(str(craft_time) + ' sekund')
-        print(str(total_bonus) + 'total bonus')
         def change_info(interval):
             self.screen.ids.l_unit_name.text = str(info[10])
             self.screen.ids.i_unit_count.text ='{0:,}'.format(count_of_unit).replace(',', ' ')
