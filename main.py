@@ -79,7 +79,7 @@ class Test(MDApp):
                           "'unit_button'":self.screen.ids.toolbar.ids.unit_button,
                           "'artifact'":self.screen.ids.bonus_artefact,"'helmet'":self.screen.ids.bonus_helmet,"'aliance'":self.screen.ids.bonus_aliance,
                           "'l_clay'":self.screen.ids.l_clay,"'l_wood'":self.screen.ids.l_wood,"'l_usefood'":self.screen.ids.l_usefood,"'l_attpow'":self.screen.ids.l_attpow,
-                          "'unit_lvl'":self.screen.ids.unit_lvl,"'min_in'":self.screen.ids.time_board.ids.min_in,"'hours_in'":self.screen.ids.time_board.ids.hours_in,
+                          "'unit_lvl'":self.screen.ids.unit_lvl,"'min_in'":self.screen.ids.min_in,"'hours_in'":self.screen.ids.hours_in,
                           "'l_unit_name'":self.screen.ids.l_unit_name, "'l_unit_count'":self.screen.ids.l_unit_count,"'l_def_inf'":self.screen.ids.l_def_inf, "'l_def_cav'":self.screen.ids.l_def_cav,
                           "'l_def'": self.screen.ids.l_def}
         db_widgets_title ={"'calc_button'":self.screen.ids.calc_button}
@@ -93,7 +93,7 @@ class Test(MDApp):
             cursor.execute(q)
             values.title = cursor.fetchone()[0]
         conn.close()
-        self.menu_nation = MDDropdownMenu(caller=self.screen.ids.toolbar.ids.nation_button, items=[{ "text": str(i) } for i in self.items_nation],
+        self.menu_nation = MDDropdownMenu( caller=self.screen.ids.toolbar.ids.nation_button, items=[{ "text": str(i) } for i in self.items_nation],
                                           use_icon_item = False,position="bottom", width_mult=2, callback = self.set_nation)
         self.menu_house_lvl = MDDropdownMenu(caller=self.screen.ids.house_lvl, items=[{ "text": str(i) } for i in range(1,21)],width_mult=3,
                                              callback=self.set_houselvl,position="bottom",use_icon_item = False,)
@@ -107,18 +107,18 @@ class Test(MDApp):
                                                   width_mult=3,position="bottom",use_icon_item = False,callback = self.set_artifact)
         self.menu_bonus_helmet = MDDropdownMenu(caller=self.screen.ids.bonus_helmet, items=[{ "text": str(i) } for i in self.items_bonus_helmet],
                                                 width_mult=3,position="bottom",use_icon_item = False,callback = self.set_helmet)
-        self.menu_hours = MDDropdownMenu(caller=self.screen.ids.time_board.ids.hours_in, items=[{ "text": str(i) + '\n' + self.screen.ids.time_board.ids.hours_in.text } for i in range(73)],width_mult=2,callback=self.set_hours,
+        self.menu_hours = MDDropdownMenu(caller=self.screen.ids.hours_in, items=[{ "text": str(i) + '\n' + self.screen.ids.hours_in.text } for i in range(72)],width_mult=2,callback=self.set_hours,
                                          position="bottom",use_icon_item = False,)
-        self.menu_min = MDDropdownMenu(caller=self.screen.ids.time_board.ids.min_in, items=[{ "text": str(i) + '\n' + self.screen.ids.time_board.ids.min_in.text } for i in range(60)],width_mult=2,
+        self.menu_min = MDDropdownMenu(caller=self.screen.ids.min_in, items=[{ "text": str(i) + '\n' + self.screen.ids.min_in.text } for i in range(60)],width_mult=2,
                                        callback=self.set_min, position="bottom",use_icon_item = False,)
     def set_hours(self, instance):
         def set_hours(interval):
-            self.screen.ids.time_board.ids.hours_in.text = instance.text
+            self.screen.ids.hours_in.text = instance.text
         Clock.schedule_once(set_hours, 0.05)
         
     def set_min(self, instance,):
         def set_min(interval):
-            self.screen.ids.time_board.ids.min_in.text = instance.text
+            self.screen.ids.min_in.text = instance.text
         Clock.schedule_once(set_min, 0.05)
     def set_unit(self, instance):
         def set_unit(interval):
@@ -199,8 +199,8 @@ class Test(MDApp):
                 self.screen.ids.unit_lvl.theme_text_color = 'Error'
             return Clock.schedule_once(problem, 0.05)
         
-        craft_time_min = re.match(r'\d{2}',self.screen.ids.time_board.ids.min_in.text) or re.match(r'\d{1}',self.screen.ids.time_board.ids.min_in.text)
-        craft_time_hours = re.match(r'\d{2}',self.screen.ids.time_board.ids.hours_in.text) or re.match(r'\d{1}',self.screen.ids.time_board.ids.hours_in.text)
+        craft_time_min = re.match(r'\d{2}',self.screen.ids.min_in.text) or re.match(r'\d{1}',self.screen.ids.min_in.text)
+        craft_time_hours = re.match(r'\d{2}',self.screen.ids.hours_in.text) or re.match(r'\d{1}',self.screen.ids.hours_in.text)
         if craft_time_min:
             craft_time_min = int(craft_time_min.group(0))
         else: 
@@ -268,7 +268,7 @@ class Test(MDApp):
                           "'artifact'":self.screen.ids.bonus_artefact,"'helmet'":self.screen.ids.bonus_helmet,"'aliance'":self.screen.ids.bonus_aliance,
                           "'l_res'":self.screen.ids.l_res,"'l_food'":self.screen.ids.l_food,"'l_iron'":self.screen.ids.l_iron,"'house_lvl'":self.screen.ids.house_lvl,
                           "'l_clay'":self.screen.ids.l_clay,"'l_wood'":self.screen.ids.l_wood,"'l_usefood'":self.screen.ids.l_usefood,"'l_attpow'":self.screen.ids.l_attpow,
-                          "'unit_lvl'":self.screen.ids.unit_lvl,"'min_in'":self.screen.ids.time_board.ids.min_in,"'hours_in'":self.screen.ids.time_board.ids.hours_in,
+                          "'unit_lvl'":self.screen.ids.unit_lvl,"'min_in'":self.screen.ids.min_in,"'hours_in'":self.screen.ids.hours_in,
                           "'l_unit_name'":self.screen.ids.l_unit_name, "'l_unit_count'":self.screen.ids.l_unit_count,"'l_def_inf'":self.screen.ids.l_def_inf, "'l_def_cav'":self.screen.ids.l_def_cav,
                           "'l_def'": self.screen.ids.l_def}
             db_widgets_titles ={"'calc_button'":self.screen.ids.calc_button}
@@ -293,7 +293,7 @@ class Test(MDApp):
             
             self.gauls_units, self.teutons_units, self.romans_units, self.items_bonus_helmet, self.items_nation, self.items_bonus_artefact, self.items_bonus_aliance = empty[0],empty[1],empty[2],empty[3],empty[4],empty[5],empty[6]
             self.menu_nation = MDDropdownMenu(caller=self.screen.ids.toolbar.ids.nation_button, items=[{ "text": str(i) } for i in self.items_nation],
-                                          use_icon_item = False,position="bottom", width_mult=2, callback = self.set_nation)
+                                         use_icon_item = False,position="bottom", width_mult=2, callback = self.set_nation)
             self.menu_house_lvl = MDDropdownMenu(caller=self.screen.ids.house_lvl, items=[{ "text": str(i) } for i in range(1,21)],width_mult=3,
                                              callback=self.set_houselvl,position="bottom",use_icon_item = False,)
             self.menu_unit_lvl = MDDropdownMenu(caller=self.screen.ids.unit_lvl, items=[{ "text": str(i) } for i in range(21)],width_mult=3,
@@ -305,9 +305,9 @@ class Test(MDApp):
                                                   width_mult=3,position="bottom",use_icon_item = False,callback = self.set_artifact)
             self.menu_bonus_helmet = MDDropdownMenu(caller=self.screen.ids.bonus_helmet, items=[{ "text": str(i) } for i in self.items_bonus_helmet],
                                                 width_mult=3,position="bottom",use_icon_item = False,callback = self.set_helmet)
-            self.menu_hours = MDDropdownMenu(caller=self.screen.ids.time_board.ids.hours_in, items=[{ "text": str(i) + '\n' + self.screen.ids.time_board.ids.hours_in.text } for i in range(73)],width_mult=2,callback=self.set_hours,
+            self.menu_hours = MDDropdownMenu(caller=self.screen.ids.hours_in, items=[{ "text": str(i) + '\n' + self.screen.ids.hours_in.text } for i in range(73)],width_mult=2,callback=self.set_hours,
                                          position="bottom",use_icon_item = False,)
-            self.menu_min = MDDropdownMenu(caller=self.screen.ids.time_board.ids.min_in, items=[{ "text": str(i) + '\n' + self.screen.ids.time_board.ids.min_in.text } for i in range(60)],width_mult=2,
+            self.menu_min = MDDropdownMenu(caller=self.screen.ids.min_in, items=[{ "text": str(i) + '\n' + self.screen.ids.min_in.text } for i in range(60)],width_mult=2,
                                        callback=self.set_min, position="bottom",use_icon_item = False,)
             conn.close()
         Clock.schedule_once(update_screen,0.05)
