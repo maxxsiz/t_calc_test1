@@ -18,7 +18,7 @@ import sqlite3
 import re
 
 Config.set('graphics', 'resizable',  False )
-db_name = "db_travian_test2.db"
+db_name = "datas/db_travian_test2.db"
 Clock.max_iteration = 20
 class LanguageImage(CircularRippleBehavior, ButtonBehavior, Image):
     pass
@@ -43,7 +43,7 @@ class Test(MDApp):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         Window.size = (450,810)
-        self.screen = Builder.load_file('travian.kv')
+        self.screen = Builder.load_file('datas/travian.kv')
         widget_menu = ["'units_gauls'","'units_teutons'","'units_romans'","'bonus_helmet'","'items_nation'","'bonus_artefact'","'bonus_aliance'"]
         conn = sqlite3.connect(db_name)
         cursor = conn.cursor()
