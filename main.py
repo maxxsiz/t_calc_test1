@@ -20,6 +20,7 @@ import re
 Config.set('graphics', 'resizable',  False )
 db_name = "datas/db_travian_test2.db"
 Clock.max_iteration = 20
+
 class LanguageImage(CircularRippleBehavior, ButtonBehavior, Image):
     pass
 class NationCustomLabel(CircularRippleBehavior, ButtonBehavior, MDLabel):
